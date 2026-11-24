@@ -27,6 +27,15 @@ import typing as t
 
 from sqlglot import exp, parser
 from sqlglot.helper import seq_get
+from sqlglot.tokens import TokenType
+
+
+class Db2DefaultColumnConstraint(exp.Expression, exp.ColumnConstraintKind):
+    """
+    DEFAULT without a value. Db2 uses the default of the column's data type.
+    """
+
+    arg_types = {}
 
 
 class Db2PreviousValueFor(exp.Expression):
@@ -76,3 +85,21 @@ class Db2Parser(parser.Parser):
             self._retreat(self._index - 1)
             return self._parse_function_call(optional_parens=False)
         return self.expression(expression_class(this=self._parse_column()))
+
+    CONSTRAINT_PARSERS = {
+        **parser.Parser.CONSTRAINT_PARSERS,
+        "DEFAULT": lambda self: self._parse_default(),
+        "WITH": lambda self: (
+            self._parse_default()
+            if self._match_text_seq("DEFAULT")
+            else parser.Parser.CONSTRAINT_PARSERS["WITH"](self)
+        ),
+    }
+
+    def _parse_default(self) -> exp.Expression:
+        """
+        Parse DEFAULT or WITH DEFAULT, with or without a value.
+        """
+        if not self._curr or self._match_set((TokenType.COMMA, TokenType.R_PAREN), advance=False):
+            return self.expression(Db2DefaultColumnConstraint())
+        return parser.Parser.CONSTRAINT_PARSERS["DEFAULT"](self)

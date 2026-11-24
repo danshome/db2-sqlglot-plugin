@@ -17,6 +17,7 @@ A Db2 dialect plugin for [SQLGlot](https://github.com/tobymao/sqlglot) - a power
 - NULL ordering support
 - **JSON_OBJECT**: Correct `VALUE` keyword syntax (`'key' VALUE expr`) per SQL standard
 - **Sequence references**: `NEXT VALUE FOR` and `PREVIOUS VALUE FOR`
+- **Column defaults**: `WITH DEFAULT` and `DEFAULT` without a value
 - **Window functions**: Full support for RANK, DENSE_RANK, PERCENT_RANK, ROW_NUMBER, PARTITION BY
 - **SQLMesh compatibility**: Automatic conversion of SQLMesh-specific functions (DATE_STR_TO_DATE, TIME_STR_TO_TIME, StrToTime) for SEED model support
 
@@ -66,6 +67,7 @@ The test suite validates:
 - ✅ **Spark transpilation**: LIMIT→FETCH FIRST, type mapping, ILIKE, TRY_CAST, window functions, modifier stripping
 - ✅ **JSON_OBJECT**: `'key' VALUE expr` syntax (SQL standard)
 - ✅ **Sequence references**: NEXT VALUE FOR, PREVIOUS VALUE FOR
+- ✅ **Column defaults**: WITH DEFAULT, DEFAULT without a value
 
 ## Installation
 
