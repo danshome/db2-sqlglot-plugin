@@ -151,6 +151,9 @@ class Db2(generator.Generator):
     }
 
     def isolation_modifier(self, expression: exp.Expression) -> str:
+        """
+        Generate the isolation-clause of a statement, if it has one.
+        """
         isolation = self.sql(expression, "isolation")
         return self.seg(f"WITH {isolation}") if isolation else ""
 
