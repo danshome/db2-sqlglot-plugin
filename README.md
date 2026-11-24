@@ -18,18 +18,19 @@ A Db2 dialect plugin for [SQLGlot](https://github.com/tobymao/sqlglot) - a power
 - **JSON_OBJECT**: Correct `VALUE` keyword syntax (`'key' VALUE expr`) per SQL standard
 - **Sequence references**: `NEXT VALUE FOR` and `PREVIOUS VALUE FOR`
 - **Column defaults**: `WITH DEFAULT` and `DEFAULT` without a value
+- **Isolation clause**: `WITH UR`, `WITH CS`, `WITH RR` and `WITH RS`
 - **Window functions**: Full support for RANK, DENSE_RANK, PERCENT_RANK, ROW_NUMBER, PARTITION BY
 - **SQLMesh compatibility**: Automatic conversion of SQLMesh-specific functions (DATE_STR_TO_DATE, TIME_STR_TO_TIME, StrToTime) for SEED model support
 
 ## ✅ Test Results
 
-All tests passing: **15 tests** with **89% code coverage**
+All tests passing: **17 tests** with **91% code coverage**
 
 ```bash
 $ python3 -m pytest tests/test_db2_dialect.py -v
 ============================= test session starts ==============================
-tests/test_db2_dialect.py ...............                                [100%]
-============================== 15 passed in 0.15s ==============================
+tests/test_db2_dialect.py .................                              [100%]
+============================== 17 passed in 0.15s ==============================
 ```
 
 **Code Coverage:**
@@ -38,10 +39,10 @@ Name                       Stmts   Miss  Cover
 ----------------------------------------------
 db2_sqlglot/__init__.py        8      2    75%
 db2_sqlglot/dialect.py        15      0   100%
-db2_sqlglot/generator.py      61      9    85%
-db2_sqlglot/parser.py         14      0   100%
+db2_sqlglot/generator.py      70      9    87%
+db2_sqlglot/parser.py         34      0   100%
 ----------------------------------------------
-TOTAL                         98     11    89%
+TOTAL                        127     11    91%
 ```
 
 ### Test Coverage
@@ -68,6 +69,7 @@ The test suite validates:
 - ✅ **JSON_OBJECT**: `'key' VALUE expr` syntax (SQL standard)
 - ✅ **Sequence references**: NEXT VALUE FOR, PREVIOUS VALUE FOR
 - ✅ **Column defaults**: WITH DEFAULT, DEFAULT without a value
+- ✅ **Isolation clause**: WITH UR, WITH CS, WITH RR, WITH RS
 
 ## Installation
 
