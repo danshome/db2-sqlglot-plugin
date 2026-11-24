@@ -44,7 +44,6 @@ class Db2PreviousValueFor(exp.Expression):
     """
 
 
-
 class Db2Parser(parser.Parser):
     FUNCTIONS = {
         **parser.Parser.FUNCTIONS,
